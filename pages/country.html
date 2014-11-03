@@ -1,4 +1,8 @@
 <h1>{{ country }}</h1>
 <h2>Country View</h2>
 
+<div ng-repeat="article in articles">
+	<a href="/#/article/{{ article._id }}/{{ article.title }}" class="btn btn-success btn-lg btn-article">{{ article.title }}</a>
+</div>
+
 <a href="#" class="btn btn-success btn-lg">Home</a>

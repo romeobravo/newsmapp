@@ -18,16 +18,24 @@ body {
 	background-color: #4682B4;
 }
 .page2        { 
-	padding-top:100px;
 	position: absolute;
 	top: 0px;
 	right: 0;
 	bottom: 0;
 	left: 75%;
 	text-align:center;
+	padding: 40px 20px;
+}
+.btn {
+	display: block;
+}
+.btn-article {
+	font-size: 14px;
+	margin: 10px 0 !important;
 }
 
-.page2 h1 	{ font-size:60px; }
+.page2 h1 	{ font-size:32px; }
+.page2 h2 	{ font-size:24px; }
 .page2 a     { margin-top:50px; }
 .page2 { color: #a55400; }
 #about      { color:#333; position:absolute; text-align:center; top:50px; width:100%; }

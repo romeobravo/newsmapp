@@ -1,6 +1,6 @@
 function markerClick(code) {
-	console.log(map.markers[code].config.article)
-	window.location = '#/article/' + code + '/' + map.markers[code].config.article;	
+	console.log(map.markers[code].config.title)
+	window.location = '/#/article/' + code + '/' + map.markers[code].config.title ;	
 }
 
 if (window.jQuery) {  console.log('Maphandler'); }
@@ -25,13 +25,13 @@ $(window).on('load', function() {
 		console.log(data);
 		data.forEach(function(marker) {
 			map.addMarker(
-				marker.id,		
+				marker._id,		
 				{
 					fill: 'black',
-					latLng: [0,0],
+					latLng: [marker.lat, marker.lng],
 					r: 5,
 					stroke: '#505050',
-					article: 'The Lorum Ipsum has been voted to parlement',
+					title: marker.title,
 				},
 				[]
 			);
@@ -39,15 +39,4 @@ $(window).on('load', function() {
 	}).error(function(err) {
 		console.log(err);
 	});
-	map.addMarker(
-		"123",		
-		{
-			fill: 'black',
-			latLng: [0,0],
-			r: 5,
-			stroke: '#505050',
-			article: 'The Lorum Ipsum has been voted to parlement',
-		},
-		[]
-	);	
 });
