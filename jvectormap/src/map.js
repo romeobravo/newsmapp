@@ -414,12 +414,12 @@ jvm.Map.prototype = {
     jvm.$(this.container).bind('touchmove', handleTouchEvent);
   },
 
-  bindElementEvents: function(){
+ bindElementEvents: function(){
     var map = this,
         mouseMoved;
 
     this.container.mousemove(function(){
-      mouseMoved = true;
+          mouseMoved++;
     });
 
     /* Can not use common class selectors here because of the bug in jQuery
@@ -456,7 +456,7 @@ jvm.Map.prototype = {
     /* Can not use common class selectors here because of the bug in jQuery
        SVG handling, use with caution. */
     this.container.delegate("[class~='jvectormap-element']", 'mousedown', function(){
-      mouseMoved = false;
+      mouseMoved = 0;
     });
 
     /* Can not use common class selectors here because of the bug in jQuery
@@ -468,7 +468,7 @@ jvm.Map.prototype = {
           clickEvent = jvm.$.Event(type+'Click.jvectormap'),
           element = type == 'region' ? map.regions[code].element : map.markers[code].element;
 
-      if (!mouseMoved) {
+      if (mouseMoved < 3) {
         map.container.trigger(clickEvent, [code]);
         if ((type === 'region' && map.params.regionsSelectable) || (type === 'marker' && map.params.markersSelectable)) {
           if (!clickEvent.isDefaultPrevented()) {

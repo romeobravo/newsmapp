@@ -5,6 +5,7 @@ function flotChart() {
 function countryHighlight(countries) {
 	map.clearSelectedRegions();
 	map.setSelectedRegions(countries);
+//	map.setFocus({regions: countries, animate: "true"});
 }
 
 // create the module and name it newsApp
