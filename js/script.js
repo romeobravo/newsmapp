@@ -1,16 +1,27 @@
+function flotChart() {
+	console.log('hello');
+}
+
+function countryHighlight(countries) {
+	map.clearSelectedRegions();
+	map.setSelectedRegions(countries);
+}
+
 // create the module and name it newsApp
     // also include ngRoute for all our routing needs
-var newsApp = angular.module('newsApp', ['ngRoute', 'ngAnimate']);
+var newsApp = angular.module('newsApp', 
+	['ngRoute', 'ngAnimate']
+);
 
 newsApp.factory('serviceId', function() {
-  var shinyNewServiceInstance;
-  // factory function body that constructs shinyNewServiceInstance
-  return shinyNewServiceInstance;
+	var shinyNewServiceInstance;
+	// factory function body that constructs shinyNewServiceInstance
+	return shinyNewServiceInstance;
 });
 
 newsApp.factory('myService', function($http) {
 	return {
-		getFoos: function(post_id) {
+		getArticle: function(post_id) {
 			//return the promise directly.
 			return $http.get('/api/post/' + post_id)
 			.then(function(result) {
@@ -69,6 +80,7 @@ newsApp.controller('mainController', function($scope, myService) {
 	myService.getAll().then(function(data) {
 		$scope.articles = data;
 		$scope.pageClass = 'page-home';
+		countryHighlight([]);
 	});
 });
 
@@ -81,12 +93,14 @@ newsApp.controller('countryController', function($scope, $routeParams, myService
 		$scope.pageClass = 'page-country';
 		$scope.articles = data;
 		$scope.country = $routeParams.param;
+		countryHighlight($routeParams.param);
 	});
 });
 
 newsApp.controller('articleController', function($scope, $routeParams, myService) {
-	myService.getFoos($routeParams.param).then(function(data) {
+	myService.getArticle($routeParams.param).then(function(data) {
 		$scope.pageClass = 'page-article';
 		$scope.article = data;
+		countryHighlight(data.country);
 	});
 });

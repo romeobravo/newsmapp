@@ -14,6 +14,14 @@ var map = new jvm.Map({
 	onMarkerClick: function(event, code) {
 		markerClick(code);
 	},
+	regionStyle: {
+		initial: {
+			fill: '#ffffff'
+		},
+		selected: {
+			fill: '#cccccc'
+		}
+	},
 	backgroundColor: '#4682B4'
 });
 console.log('dafasd');

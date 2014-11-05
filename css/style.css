@@ -25,7 +25,9 @@ body {
 	left: 75%;
 	text-align:center;
 	padding: 40px 20px;
+	overflow-y: auto;
 }
+
 .btn {
 	display: block;
 }
