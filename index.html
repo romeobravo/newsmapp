@@ -3,8 +3,6 @@
 <head>
 
 	<!-- CSS -->
-	<!-- load bootstrap (bootswatch version) -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/readable/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/style.css">
 	<link rel="stylesheet" href="./css/map.css">
 	
@@ -21,6 +19,18 @@
 
 <!-- apply our angular app -->
 <body ng-app="newsApp">
+	<header>
+		<a href="#"><h1 class="logo">newsmapp</h1></a>
+		<nav>
+			<ul>
+				<li class="navitem"><a href="#/category/politics"><span>Politics</span></a></li>
+				<li class="navitem"><a href="#/category/technology"><span>Technology</span></a></li>
+				<li class="navitem"><a href="#/category/conflict"><span>Conflict</span></a></li>
+				<li class="navitem"><a href="#/category/economy"><span>Economy</span></a></li>
+			</ul>
+
+		</nav>
+	</header>
 	<div id="map" class="map"></div>
 	<!-- inject our views using ng-view -->
 	<!-- each angular controller applies a different class here -->

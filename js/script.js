@@ -30,6 +30,14 @@ newsApp.factory('myService', function($http) {
 				return result.data;
 			});
 		},
+		getCategory: function(category) {
+			//return the promise directly.
+			return $http.get('/api/post/category/' + category)
+			.then(function(result) {
+				//resolve the promise as the data
+				return result.data;
+			});
+		},
 		getCountry: function(country) {
 			//return the promise directly.
 			return $http.get('/api/post/country/' + country)
@@ -72,6 +80,11 @@ newsApp.config(function($routeProvider) {
 		.when('/article/:param/:param2', {
 			templateUrl : 'pages/article.html',
 			controller  : 'articleController'
+		})
+
+		.when('/category/:param', {
+			templateUrl : 'pages/category.html',
+			controller  : 'categoryController'
 		});
 });
 
@@ -81,6 +94,11 @@ newsApp.controller('mainController', function($scope, myService) {
 	myService.getAll().then(function(data) {
 		$scope.articles = data;
 		$scope.pageClass = 'page-home';
+		if(data.length > 0) {
+			$scope.found = true;
+		} else {
+			$scope.found = false;
+		}
 		countryHighlight([]);
 	});
 });
@@ -94,6 +112,11 @@ newsApp.controller('countryController', function($scope, $routeParams, myService
 		$scope.pageClass = 'page-country';
 		$scope.articles = data;
 		$scope.country = $routeParams.param;
+		if(data.length > 0) {
+			$scope.found = true;
+		} else {
+			$scope.found = false;
+		}
 		countryHighlight($routeParams.param);
 	});
 });
@@ -103,5 +126,21 @@ newsApp.controller('articleController', function($scope, $routeParams, myService
 		$scope.pageClass = 'page-article';
 		$scope.article = data;
 		countryHighlight(data.country);
+	});
+});
+
+newsApp.controller('categoryController', function($scope, $routeParams, myService) {
+	myService.getCategory($routeParams.param).then(function(data) {
+		$scope.pageClass = 'page-category';
+		console.log(data);
+		if(data.length > 0) {
+			$scope.found = true;
+		} else {
+			$scope.found = false;
+		}
+		console.log($scope.found);
+		$scope.articles = data;
+		$scope.category = $routeParams.param;
+		countryHighlight([]);
 	});
 });
