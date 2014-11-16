@@ -248,6 +248,13 @@ jvm.Map.prototype = {
     this.applyTransform();
   },
 
+  resetZoom: function() {
+    this.scale = this.baseScale;
+    this.transX = this.baseTransX;
+    this.transY = this.baseTransY;
+    this.applyTransform();    
+  },
+
   applyTransform: function() {
     var maxTransX,
         maxTransY,

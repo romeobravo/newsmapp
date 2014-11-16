@@ -5,7 +5,32 @@ function flotChart() {
 function countryHighlight(countries) {
 	map.clearSelectedRegions();
 	map.setSelectedRegions(countries);
-//	map.setFocus({regions: countries, animate: "true"});
+	console.log(countries);
+	if(Array.isArray(countries)) {
+		if(countries.length > 0)
+			map.setFocus({regions: countries, animate: true});
+		else
+			map.resetZoom();
+	} else {
+		map.setFocus({region: countries, animate: true});	
+	}
+}
+
+function categoryShow(articles) {
+	if(articles) {
+		$('circle').each(function() {
+			$(this).hide();
+		});
+		
+		articles.forEach(function(article) {
+			console.log(article._id);
+			$('circle[data-index=' + article._id + ']').show();
+		});
+	} else {
+		$('circle').each(function() {
+			$(this).show();
+		});		
+	}
 }
 
 // create the module and name it newsApp
@@ -100,6 +125,7 @@ newsApp.controller('mainController', function($scope, myService) {
 			$scope.found = false;
 		}
 		countryHighlight([]);
+		categoryShow();
 	});
 });
 
@@ -118,6 +144,7 @@ newsApp.controller('countryController', function($scope, $routeParams, myService
 			$scope.found = false;
 		}
 		countryHighlight($routeParams.param);
+		categoryShow();
 	});
 });
 
@@ -126,6 +153,7 @@ newsApp.controller('articleController', function($scope, $routeParams, myService
 		$scope.pageClass = 'page-article';
 		$scope.article = data;
 		countryHighlight(data.country);
+		categoryShow();
 	});
 });
 
@@ -142,5 +170,6 @@ newsApp.controller('categoryController', function($scope, $routeParams, myServic
 		$scope.articles = data;
 		$scope.category = $routeParams.param;
 		countryHighlight([]);
+		categoryShow(data);
 	});
 });

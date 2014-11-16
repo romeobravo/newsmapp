@@ -8,7 +8,7 @@ body {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: #617487;
+	background-color: #42586E;
 	font-size: 0;
 	padding: 0;
 	margin: 0;
@@ -139,7 +139,7 @@ nav ul {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
 	color: #fff;
-	text-align: left;
+	text-align: justify;
 	display: block;
 	padding: 0 10px;
 }

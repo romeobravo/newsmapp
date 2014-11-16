@@ -22,7 +22,8 @@ var map = new jvm.Map({
 			fill: '#cccccc'
 		}
 	},
-	backgroundColor: '#4682B4'
+	//backgroundColor: '#4682B4'
+	backgroundColor: '#306AA3'
 });
 console.log('dafasd');
 
@@ -46,5 +47,8 @@ $(window).on('load', function() {
 		});
 	}).error(function(err) {
 		console.log(err);
+	});
+	map.container.click(function(e){
+		console.log(map.pointToLatLng(e.offsetX, e.offsetY));
 	});
 });
