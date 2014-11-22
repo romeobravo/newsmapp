@@ -823,6 +823,8 @@ jvm.Map.prototype = {
           index: i,
           cx: point.x,
           cy: point.y,
+          x: point.x,
+          y: point.y,
           group: this.markersGroup,
           canvas: this.canvas,
           labelsGroup: this.markerLabelsGroup,
@@ -846,8 +848,10 @@ jvm.Map.prototype = {
 
     for (i in this.markers) {
       point = this.getMarkerPosition( this.markers[i].config );
-      if (point !== false) {
+      if (point !== false && this.markers[i].config.type === 'circle') {
         this.markers[i].element.setStyle({cx: point.x, cy: point.y});
+      } else if (point !== false && this.markers[i].config.type === 'rect') {
+        this.markers[i].element.setStyle({x: point.x, y: point.y});
       }
     }
   },
@@ -1105,7 +1109,10 @@ jvm.Map.defaultParams = {
       "fill-opacity": 1,
       "stroke-width": 1,
       "stroke-opacity": 1,
-      r: 5
+      width: 5,
+      height: 5,
+      "fill-rule": "evenodd",
+      d: "M24,47.759l-0.823-1.191C22.558,45.671,8,24.499,8,16C8,7.178,15.178,0,24,0s16,7.178,16,16     c0,8.499-14.558,29.671-15.177,30.568L24,47.759z M24,2c-7.72,0-14,6.28-14,14c0,6.787,10.885,23.555,14,28.214 "
     },
     hover: {
       stroke: 'black',

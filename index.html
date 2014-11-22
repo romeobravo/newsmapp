@@ -12,7 +12,7 @@
 	<script src="http://code.angularjs.org/1.2.13/angular.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-route.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-animate.js"></script>
-	<script src="./libs/jquery.jvectormap.min.js" type="text/javascript"></script>
+	<script src="./jvectormap/jquery.jvectormap.min.js" type="text/javascript"></script>
 	<script src="./libs/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
 	<script src="./js/script.js"></script>
 </head>
@@ -23,16 +23,19 @@
 		<a href="#"><h1 class="logo">newsmapp</h1></a>
 		<nav>
 			<ul>
-				<li class="navitem"><a href="#/category/politics"><span>Politics</span></a></li>
-				<li class="navitem"><a href="#/category/technology"><span>Technology</span></a></li>
-				<li class="navitem"><a href="#/category/conflict"><span>Conflict</span></a></li>
-				<li class="navitem"><a href="#/category/economy"><span>Economy</span></a></li>
-				<li class="navitem"><a href="#/category/sports"><span>Sports</span></a></li>
+				<li class="navitem navpolitics"><a href="#/category/politics"><span>Politics</span></a></li>
+				<li class="navitem navtechnology"><a href="#/category/technology"><span>Technology</span></a></li>
+				<li class="navitem navconflict"><a href="#/category/conflict"><span>Conflict</span></a></li>
+				<li class="navitem naveconomy"><a href="#/category/economy"><span>Economy</span></a></li>
+				<li class="navitem navsports"><a href="#/category/sports"><span>Sports</span></a></li>
 			</ul>
 
 		</nav>
 	</header>
 	<div id="map" class="map"></div>
+	<div class="label">
+		<span class="labeltext"></span>
+	</div>
 	<!-- inject our views using ng-view -->
 	<!-- each angular controller applies a different class here -->
 	<div id="side" class="page2" ng-view></div>

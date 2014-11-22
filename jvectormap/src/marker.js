@@ -33,11 +33,19 @@ jvm.Marker.prototype.createShape = function(){
   if (this.shape) {
     this.shape.remove();
   }
-  this.shape = this.config.canvas[this.isImage ? 'addImage' : 'addCircle']({
+  console.log(this.config);
+
+  this.shape = this.config.canvas.addRect({
+    "data-index": this.config.index,
+    x: this.config.x,
+    y: this.config.y    
+  }, this.config.style, this.config.group);
+
+/*  this.shape = this.config.canvas[this.isImage ? 'addImage' : 'addRect']({
     "data-index": this.config.index,
     cx: this.config.cx,
     cy: this.config.cy
-  }, this.config.style, this.config.group);
+  }, this.config.style, this.config.group);*/
 
   this.shape.addClass('jvectormap-marker jvectormap-element');
 

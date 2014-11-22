@@ -50,6 +50,14 @@ jvm.AbstractCanvasElement.prototype.addCircle = function(config, style, group){
   return el;
 };
 
+jvm.AbstractCanvasElement.prototype.addRect = function(config, style, group){
+  var el = new jvm[this.classPrefix+'RectElement'](config, style);
+
+  this.add(el, group);
+  return el;
+};
+
+
 /**
  * Create circle and add it to the canvas.
  * @param {Object} config Parameters of path to create.
