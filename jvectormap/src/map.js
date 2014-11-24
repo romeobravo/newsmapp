@@ -814,17 +814,18 @@ jvm.Map.prototype = {
     for (i in markers) {
       markerConfig = markers[i] instanceof Array ? {latLng: markers[i]} : markers[i];
       point = this.getMarkerPosition( markerConfig );
-
+      var styleConfig = markerConfig.initial;
+      //console.log("style", markerConfig);
+      //console.log("style", styleConfig);
       if (point !== false) {
         marker = new jvm.Marker({
           map: this,
-          style: jvm.$.extend(true, {}, this.params.markerStyle, {initial: markerConfig.style || {}}),
+          style: jvm.$.extend(true, {}, this.params.markerStyle, {initial: styleConfig || {}}),
           labelStyle: jvm.$.extend(true, {}, this.params.markerLabelStyle),
           index: i,
           cx: point.x,
           cy: point.y,
-          x: point.x,
-          y: point.y,
+          category: markerConfig.category,
           group: this.markersGroup,
           canvas: this.canvas,
           labelsGroup: this.markerLabelsGroup,
@@ -1105,18 +1106,15 @@ jvm.Map.defaultParams = {
   markerStyle: {
     initial: {
       fill: 'grey',
-      stroke: '#505050',
+      stroke: '#2AB633',
       "fill-opacity": 1,
       "stroke-width": 1,
       "stroke-opacity": 1,
-      width: 5,
-      height: 5,
-      "fill-rule": "evenodd",
-      d: "M24,47.759l-0.823-1.191C22.558,45.671,8,24.499,8,16C8,7.178,15.178,0,24,0s16,7.178,16,16     c0,8.499-14.558,29.671-15.177,30.568L24,47.759z M24,2c-7.72,0-14,6.28-14,14c0,6.787,10.885,23.555,14,28.214 "
+      r: 6,
     },
     hover: {
-      stroke: 'black',
-      "stroke-width": 2,
+      stroke: '#2AB633',
+      "stroke-width": 1,
       cursor: 'pointer'
     },
     selected: {

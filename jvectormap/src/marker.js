@@ -2,6 +2,8 @@ jvm.Marker = function(config){
   var text,
       offsets;
 
+  //console.log(config);
+
   this.config = config;
   this.map = this.config.map;
 
@@ -33,21 +35,36 @@ jvm.Marker.prototype.createShape = function(){
   if (this.shape) {
     this.shape.remove();
   }
-  console.log(this.config);
+  //console.log(this.config);
 
-  this.shape = this.config.canvas.addRect({
-    "data-index": this.config.index,
-    x: this.config.x,
-    y: this.config.y    
-  }, this.config.style, this.config.group);
-
-/*  this.shape = this.config.canvas[this.isImage ? 'addImage' : 'addRect']({
+  this.shape = this.config.canvas[this.isImage ? 'addImage' : 'addCircle']({
     "data-index": this.config.index,
     cx: this.config.cx,
     cy: this.config.cy
-  }, this.config.style, this.config.group);*/
+  }, this.config.style, this.config.group);
 
   this.shape.addClass('jvectormap-marker jvectormap-element');
+
+  switch(this.config.category) {
+    case "politics":
+      this.shape.addClass('jvectormap-marker jvectormap-element marker-politics');
+      break;
+    case "technology":
+      this.shape.addClass('jvectormap-marker jvectormap-element marker-technology');
+      break;
+    case "conflict":
+      this.shape.addClass('jvectormap-marker jvectormap-element marker-conflict');
+      break;
+    case "economy":
+      this.shape.addClass('jvectormap-marker jvectormap-element marker-economy');;
+      break;
+    case "sports":
+      this.shape.addClass('jvectormap-marker jvectormap-element marker-sports');
+      break;
+    default:
+      break;
+  }
+
 
   if (this.isImage) {
     jvm.$(this.shape.node).on('imageloaded', function(){

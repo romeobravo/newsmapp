@@ -19,6 +19,34 @@ header {
 	margin: 0;
 	padding: 0;
 }
+circle {
+	transition: all 0.5s;
+}
+.circle-hover {
+	stroke-width: 10;
+}
+
+.marker-politics {
+	fill: #2AB633;
+	stroke: #2AB633;
+}
+.marker-technology {
+	fill: #2D5898;	
+	stroke: #2D5898;	
+}
+.marker-conflict {
+	fill: #C0392B;	
+	stroke: #C0392B;	
+}
+.marker-economy {
+	fill: #E7A535;
+	stroke: #E7A535;
+}
+.marker-sports {
+	fill: #2c3e50;
+	stroke: #2c3e50;
+}
+
 .logo {
 	font-size: 42px;
 	font-family: 'Raleway', sans-serif;

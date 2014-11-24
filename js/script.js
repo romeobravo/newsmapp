@@ -137,7 +137,8 @@ newsApp.controller('countryController', function($scope, $routeParams, myService
 	myService.getCountry($routeParams.param).then(function(data) {
 		$scope.pageClass = 'page-country';
 		$scope.articles = data;
-		$scope.country = $routeParams.param;
+		var code = $routeParams.param;
+		$scope.country = map.mapData.paths[code].name;
 		if(data.length > 0) {
 			$scope.found = true;
 		} else {
