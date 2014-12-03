@@ -1,9 +1,10 @@
 var markerData;
+var lastCountry;
 
-function markerClick(code) {
-	console.log(map.markers[code].config.title)
+function markerClick(marker) {
+	var code = $(marker).attr('data-index');
 	window.location = '/#/article/' + code + '/' + map.markers[code].config.title ;	
-	markerLeave();
+	markerLeave(marker);
 }
 
 function markerEnter(marker, label) {
@@ -15,12 +16,15 @@ function markerEnter(marker, label) {
 		var index = $(marker).attr('data-index');
 		var data = $.grep(markerData, function(e){ return e._id == index; });
 		$('.labeltext').html(data[0].title);
-		$('.label').css('top', offset.top - 85);
+		$('.label').css('top', offset.top - 80);
+		$('.labelpointer').css('top', offset.top - 25);
 		var left = offset.left - $('.label').outerWidth() / 2;
 		if(left < 10) {
 			left = 10;
 		}
 		$('.label').css('left', left);
+		$('.labelpointer').css('left', offset.left - 15);
+
 		if(!$('.label').hasClass('visible')) {
 			$('.label').addClass('visible');
 		}
@@ -57,6 +61,28 @@ function markerLeave(marker) {
 	}
 }
 
+function filter(query) {
+	console.log("query", query);
+	query = query.toLowerCase();
+	$('.item').each(function(id) {
+		var data = markerData[id];
+		var haystack = data.category;
+		haystack += data.headline;
+		haystack += data.summary;
+		haystack += data.provider;
+		haystack += data.title;
+		data.country.forEach(function(code) {
+			haystack += map.mapData.paths[code].name;
+		});
+		haystack = haystack.toLowerCase();
+		if(haystack.indexOf(query) == -1) {
+			$(this).hide();
+		} else {
+			$(this).show();
+		}
+	});
+}
+
 if (window.jQuery) {  console.log('Maphandler'); }
 var map = new jvm.Map({
     container: $('#map'),
@@ -64,9 +90,6 @@ var map = new jvm.Map({
 	onRegionClick: function(event, code) {
 		window.location = '#/country/' + code;
 		console.log(code);
-	},
-	onMarkerClick: function(event, code) {
-		markerClick(code);
 	},
 	regionStyle: {
 		initial: {
@@ -104,25 +127,53 @@ $(window).on('load', function() {
 			);
 		});
 		$('.jvectormap-marker')
+			.on('click', function() {
+				//console.log(this);
+				markerClick(this);				
+			})
 			.on('mouseenter', function() {
+				//console.log(this);
 				markerEnter(this, true);
 			})
 			.on('mouseleave', function() {
-				markerLeave(this, true);
+				//console.log(this);
+				markerLeave(this);
 			});
 		$('body')
+			.on('click', '.item', function() {
+				var classString = $(this).attr("class");
+				var id = classString.substring(12);
+				var marker = $('circle[data-index=' + id + ']').get(0);				
+				markerLeave(marker);				
+			})
 			.on('mouseenter', '.item', function() {
 				var classString = $(this).attr("class");
-				var id = classString.substring(classString.length - 2);
-				var ele = $('circle[data-index=' + id + ']').get(0);
-				markerEnter(ele, false);
+				var id = classString.substring(12);
+				var marker = $('circle[data-index=' + id + ']').get(0);
+				markerEnter(marker, false);
 			})
 			.on('mouseleave', '.item', function() {
 				var classString = $(this).attr("class");
-				var id = classString.substring(classString.length - 2);
-				var ele = $('circle[data-index=' + id + ']').get(0);				
-				markerLeave(ele, false);
-			});			
+				var id = classString.substring(12);
+				var marker = $('circle[data-index=' + id + ']').get(0);				
+				markerLeave(marker);
+			})
+			.on('click', '.tool-search-svg-container', function() {
+				if($('.tool-search-bar').hasClass('tool-folded')) {
+					$('.tool-search-bar').removeClass('tool-folded');
+					$('.tool-search-bar').val('');
+					filter('');
+				} else {
+					console.log('fold open');
+					$('.tool-search-bar').addClass('tool-folded');
+					setTimeout(function() {
+						$('.tool-search-bar').focus();
+					}, 50);
+				}
+			})
+			.on('input', '.tool-search-bar', function() {
+				filter($(this).val());
+			});		
 	}).error(function(err) {
 		console.log(err);
 	});

@@ -138,6 +138,8 @@ newsApp.controller('countryController', function($scope, $routeParams, myService
 		$scope.pageClass = 'page-country';
 		$scope.articles = data;
 		var code = $routeParams.param;
+		lastCountry = code;
+		$scope.code = code;
 		$scope.country = map.mapData.paths[code].name;
 		if(data.length > 0) {
 			$scope.found = true;
@@ -153,6 +155,9 @@ newsApp.controller('articleController', function($scope, $routeParams, myService
 	myService.getArticle($routeParams.param).then(function(data) {
 		$scope.pageClass = 'page-article';
 		$scope.article = data;
+		console.log(data.country);
+		$scope.code = data.country[0];
+		$scope.country = map.mapData.paths[data.country[0]].name;
 		countryHighlight(data.country);
 		categoryShow();
 	});

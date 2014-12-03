@@ -4,7 +4,6 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="./css/style.css">
-	<link rel="stylesheet" href="./css/map.css">
 	
 	<!-- JS -->
 	<!-- load angular, ngRoute, ngAnimate -->
@@ -36,9 +35,12 @@
 	<div class="label">
 		<span class="labeltext"></span>
 	</div>
+	<div class="labelpointer"></div>
 	<!-- inject our views using ng-view -->
 	<!-- each angular controller applies a different class here -->
-	<div id="side" class="page2" ng-view></div>
+	<div id="side">
+		<div class="page2" ng-view></div>
+	</div>
 	<script src="./js/mapHandler.js" type="text/javascript"></script>
 </body>
 </html>
