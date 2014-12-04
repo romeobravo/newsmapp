@@ -22,12 +22,6 @@ header {
 .jvectormap-container {
 	height: 100%;
 }
-circle {
-	transition: all 0.5s;
-}
-.circle-hover {
-	stroke-width: 10;
-}
 
 .marker-politics {
 	fill: #2AB633;
@@ -50,6 +44,32 @@ circle {
 	stroke: #2c3e50;
 }
 
+circle {
+	transition: all 0.5s;
+}
+.circle-hover {
+	stroke-width: 10;
+}
+.circle-hover.marker-politics {
+	stroke: #7FD385;
+	fill: #7FD385;	
+}
+.circle-hover.marker-technology {
+	stroke: #6C8AB7;
+	fill: #6C8AB7;	
+}
+.circle-hover.marker-conflict {
+	stroke: #D98880;
+	fill: #D98880;	
+}
+.circle-hover.marker-economy {
+	stroke: #F1C986;
+	fill: #F1C986;	
+}
+.circle-hover.marker-sports {
+	stroke: #808B96;
+	fill: #808B96;	
+}
 .logo {
 	font-size: 42px;
 	font-family: 'Raleway', sans-serif;

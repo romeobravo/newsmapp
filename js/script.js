@@ -2,10 +2,15 @@ function flotChart() {
 	console.log('hello');
 }
 
+function articleHighlight(article) {
+	// var marker = $('circle[data-index=' + article + ']').get(0);	
+	// markerEnter(marker, false);
+}
+
 function countryHighlight(countries) {
 	map.clearSelectedRegions();
 	map.setSelectedRegions(countries);
-	console.log(countries);
+	//console.log(countries);
 	if(Array.isArray(countries)) {
 		if(countries.length > 0)
 			map.setFocus({regions: countries, animate: true});
@@ -155,10 +160,10 @@ newsApp.controller('articleController', function($scope, $routeParams, myService
 	myService.getArticle($routeParams.param).then(function(data) {
 		$scope.pageClass = 'page-article';
 		$scope.article = data;
-		console.log(data.country);
 		$scope.code = data.country[0];
 		$scope.country = map.mapData.paths[data.country[0]].name;
 		countryHighlight(data.country);
+		articleHighlight($routeParams.param);
 		categoryShow();
 	});
 });
@@ -166,13 +171,11 @@ newsApp.controller('articleController', function($scope, $routeParams, myService
 newsApp.controller('categoryController', function($scope, $routeParams, myService) {
 	myService.getCategory($routeParams.param).then(function(data) {
 		$scope.pageClass = 'page-category';
-		console.log(data);
 		if(data.length > 0) {
 			$scope.found = true;
 		} else {
 			$scope.found = false;
 		}
-		console.log($scope.found);
 		$scope.articles = data;
 		$scope.category = $routeParams.param;
 		countryHighlight([]);

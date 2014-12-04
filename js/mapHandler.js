@@ -1,4 +1,4 @@
-var markerData;
+var markerData = {};
 var lastCountry;
 
 function markerClick(marker) {
@@ -14,8 +14,9 @@ function markerEnter(marker, label) {
 	if(label) {
 		var offset = $(marker).offset();
 		var index = $(marker).attr('data-index');
-		var data = $.grep(markerData, function(e){ return e._id == index; });
-		$('.labeltext').html(data[0].title);
+		var data = markerData['m' + index];
+
+		$('.labeltext').html(data.title);
 		$('.label').css('top', offset.top - 80);
 		$('.labelpointer').css('top', offset.top - 25);
 		var left = offset.left - $('.label').outerWidth() / 2;
@@ -28,7 +29,7 @@ function markerEnter(marker, label) {
 		if(!$('.label').hasClass('visible')) {
 			$('.label').addClass('visible');
 		}
-		switch(data[0].category) {
+		switch(data.category) {
 			case "politics":
 				$('.label').css('border-color', '#2AB633');
 				break;
@@ -64,15 +65,17 @@ function markerLeave(marker) {
 function filter(query) {
 	console.log("query", query);
 	query = query.toLowerCase();
-	$('.item').each(function(id) {
-		var data = markerData[id];
-		var haystack = data.category;
-		haystack += data.headline;
-		haystack += data.summary;
-		haystack += data.provider;
-		haystack += data.title;
+	$('.item').each(function() {
+		var classString = $(this).attr("class");
+		var mid = 'm' + classString.substring(12);
+		var data = markerData[mid];
+		var haystack = data.category + ' ';
+		haystack += data.headline + ' ';
+		haystack += data.summary + ' ';
+		haystack += data.provider + ' ';
+		haystack += data.title + ' ';
 		data.country.forEach(function(code) {
-			haystack += map.mapData.paths[code].name;
+			haystack += map.mapData.paths[code].name + ' ';
 		});
 		haystack = haystack.toLowerCase();
 		if(haystack.indexOf(query) == -1) {
@@ -80,7 +83,7 @@ function filter(query) {
 		} else {
 			$(this).show();
 		}
-	});
+	});		
 }
 
 if (window.jQuery) {  console.log('Maphandler'); }
@@ -102,15 +105,14 @@ var map = new jvm.Map({
 	//backgroundColor: '#4682B4'
 	backgroundColor: '#306AA3'
 });
-console.log('dafasd');
 
 $(window).on('load', function() {
 	$.ajax({
 		url: "/api/post/all"
 	}).done(function(data) {
-		markerData = data;
-		console.log("markerData", markerData);
 		data.forEach(function(marker) {
+			var mid = 'm' + marker._id;
+			markerData[mid] = marker;
 			map.addMarker(
 				marker._id,		
 				{
