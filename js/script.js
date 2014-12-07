@@ -2,6 +2,13 @@ function flotChart() {
 	console.log('hello');
 }
 
+function filterArticles(articles) {
+	//console.log(articles);
+	articles.forEach(function(article) {
+		//console.log(article._id);
+	});
+}
+
 function articleHighlight(article) {
 	// var marker = $('circle[data-index=' + article + ']').get(0);	
 	// markerEnter(marker, false);
@@ -26,16 +33,19 @@ function categoryShow(articles) {
 		$('circle').each(function() {
 			$(this).hide();
 		});
-		
+		for(var mid in markerData) {
+			markerData[mid].show.category = false;
+		}
 		articles.forEach(function(article) {
 			console.log(article._id);
-			$('circle[data-index=' + article._id + ']').show();
+			markerData['m' + article._id].show.category = true;
 		});
 	} else {
-		$('circle').each(function() {
-			$(this).show();
-		});		
+		for(var mid in markerData) {
+			markerData[mid].show.category = true;
+		}			
 	}
+	redraw();
 }
 
 // create the module and name it newsApp
@@ -141,6 +151,7 @@ newsApp.controller('aboutController', function($scope) {
 newsApp.controller('countryController', function($scope, $routeParams, myService) {
 	myService.getCountry($routeParams.param).then(function(data) {
 		$scope.pageClass = 'page-country';
+		filterArticles(data);
 		$scope.articles = data;
 		var code = $routeParams.param;
 		lastCountry = code;

@@ -1,5 +1,18 @@
 var markerData = {};
+var countries = {};
 var lastCountry;
+
+function redraw() {
+	for(var mid in markerData) {
+		if(!markerData[mid].show.search || !markerData[mid].show.category) {
+			markerData[mid].circle.hide();
+			$(markerData[mid].item).fadeOut();
+		} else {
+			markerData[mid].circle.show();
+			$(markerData[mid].item).fadeIn();
+		}
+	}
+}
 
 function markerClick(marker) {
 	var code = $(marker).attr('data-index');
@@ -63,11 +76,9 @@ function markerLeave(marker) {
 }
 
 function filter(query) {
-	console.log("query", query);
+	//console.log("query", query);
 	query = query.toLowerCase();
-	$('.item').each(function() {
-		var classString = $(this).attr("class");
-		var mid = 'm' + classString.substring(12);
+	for(var mid in markerData) {
 		var data = markerData[mid];
 		var haystack = data.category + ' ';
 		haystack += data.headline + ' ';
@@ -76,14 +87,48 @@ function filter(query) {
 		haystack += data.title + ' ';
 		data.country.forEach(function(code) {
 			haystack += map.mapData.paths[code].name + ' ';
+			haystack += code + ' ';
 		});
 		haystack = haystack.toLowerCase();
 		if(haystack.indexOf(query) == -1) {
 			$(this).hide();
+			data.show.search = false;
 		} else {
 			$(this).show();
+			data.show.search = true;
 		}
-	});		
+		redraw();		
+	}
+	map.clearSelectedRegions();
+	$('.countryFound').remove();
+	if(query.length > 1) {
+		var result = [];
+		for(var c in countries) {
+			var haystack = c + ' ';
+			haystack += countries[c].config.name;
+			haystack = haystack.toLowerCase();
+			if(haystack.indexOf(query) > -1) {
+				result.push({
+					'code' : c,
+					'priority' : haystack.indexOf(query)
+				});
+			}
+		}	
+		//console.log(result);
+		result.sort(function(a, b) {return a['priority'] - b['priority']});
+		var countryArray = [];
+		var html = "";
+		for(var c in result) {
+			countryArray.push(result[c].code);
+			html += '<a href="#/country/' + result[c].code + '"><div class="countryFound"><span>' + countries[result[c].code].config.name + '</span></div></a>';
+		}
+		//console.log(result);
+		//console.log(countryArray);
+		console.log(html);
+		$('.page2').prepend(html);
+		map.setSelectedRegions(countryArray);
+	}
+
 }
 
 if (window.jQuery) {  console.log('Maphandler'); }
@@ -110,6 +155,7 @@ $(window).on('load', function() {
 	$.ajax({
 		url: "/api/post/all"
 	}).done(function(data) {
+		countries = map.regions;
 		data.forEach(function(marker) {
 			var mid = 'm' + marker._id;
 			markerData[mid] = marker;
@@ -127,6 +173,12 @@ $(window).on('load', function() {
 				},
 				[]
 			);
+			markerData[mid].marker = map.markers[marker._id];
+			markerData[mid].circle = $('circle[data-index="' + marker._id + '"]');
+			markerData[mid].show = {};
+			markerData[mid].show.search = true;
+			markerData[mid].show.category = true;
+			markerData[mid].item = '.marker-' + marker._id;
 		});
 		$('.jvectormap-marker')
 			.on('click', function() {
@@ -160,21 +212,23 @@ $(window).on('load', function() {
 				var marker = $('circle[data-index=' + id + ']').get(0);				
 				markerLeave(marker);
 			})
-			.on('click', '.tool-search-svg-container', function() {
-				if($('.tool-search-bar').hasClass('tool-folded')) {
-					$('.tool-search-bar').removeClass('tool-folded');
+			.on('input', '.tool-search-bar', function() {
+				filter($(this).val());
+			});
+		$('.tool-search-svg')
+			.on('click', function() {
+				if($('.navsearch').hasClass('navsearch-open')) {
+					$('.navsearch').removeClass('navsearch-open');
+					$('.tool-search-bar').removeClass('tool-open');
 					$('.tool-search-bar').val('');
 					filter('');
 				} else {
-					console.log('fold open');
-					$('.tool-search-bar').addClass('tool-folded');
+					$('.navsearch').addClass('navsearch-open');
+					$('.tool-search-bar').addClass('tool-open');
 					setTimeout(function() {
 						$('.tool-search-bar').focus();
 					}, 50);
 				}
-			})
-			.on('input', '.tool-search-bar', function() {
-				filter($(this).val());
 			});		
 	}).error(function(err) {
 		console.log(err);
