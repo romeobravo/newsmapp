@@ -8,12 +8,12 @@ function timer() {
 		}
 
 		if(localStorage.getItem('state') == '22') {
-			if(time > 599) {
+			if(time > 479) {
 				localStorage.setItem('state', 21);
 				loadPage();					
 				$('.intropage').fadeIn();				
 			} else {
-				var timeleft = 600 - parseInt(time);
+				var timeleft = 480 - parseInt(time);
 				if($('.testtimer').length > 0)
 					$('.testtimer').find('span').html( parseInt(timeleft / 60) + ':' + timeleft % 60);
 				timer();
