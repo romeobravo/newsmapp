@@ -1,0 +1,16 @@
+<h1>{{ category }}</h1>
+
+<div ng-repeat="article in articles" class="item marker-{{ article._id }}">
+	<a href="./#/article/{{ article._id }}/{{ article.title }}" class="card-url">
+		<div class="card">
+			<span class="card-time">13:44</span>
+			<span class="card-title">{{ article.title }}</span>
+		</div>		
+	</a>
+</div>
+
+<div ng-class="{hidden: found}" class="no-articles">
+	<span>No articles found</span>
+</div>
+
+<a href="#" class="btn btn-success btn-lg">Home</a>

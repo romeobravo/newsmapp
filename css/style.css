@@ -1,13 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,300,200);
 /* BASE STYLES
 ============================================================================= */
-html         { overflow-x:hidden; overflow-y: hidden; margin: 0; padding: 0;}
+html         { overflow-x:hidden; margin: 0; padding: 0;}
 body {
 	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
+	width: 100%;
+	min-height: 100%;
 	background-color: #42586E;
 	font-size: 0;
 	padding: 0;
@@ -48,6 +46,7 @@ header {
 }
 
 circle {
+	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 }
 .circle-hover {
@@ -80,7 +79,7 @@ circle {
 	color: #fff;
 	line-height: 80px;
 	display: inline-block;
-	padding: 0 20px;
+	padding: 0 10px;
 	margin: 0;
 }
 nav {
@@ -103,8 +102,9 @@ nav ul {
 }
 .navitem {
 	display: inline-block;
-	width: 150px;
+	width: 120px;
 	height: 80px;
+	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 	text-align: center;
 	color: #fff;
@@ -113,6 +113,7 @@ nav ul {
 .navsearch {
 	width: 80px;
 	background-color: #2AB633;
+	-webkit-transition: all 0.5s;	
 	transition: all 0.5s;	
 	text-align: left;
 }
@@ -144,6 +145,7 @@ nav ul {
 .navitem:hover span:before {
 	visibility: visible;
 	width: 100%;
+	-webkit-transition: all 0.3s ease-in-out 0s;
 	transition: all 0.3s ease-in-out 0s;
 }
 .navitem:hover {
@@ -217,6 +219,7 @@ nav ul {
 .item {
 	border-left: 2px solid #000;
 	padding-left: 10px;
+	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 	overflow: hidden;
 }
@@ -280,6 +283,7 @@ nav ul {
 	border-radius: 2px;
 	background-color: #42586E;
 	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+	-webkit-transition: opacity 0.5s;
 	transition: opacity 0.5s;
 	z-index: -999;
 	border-left: 10px solid;
@@ -331,6 +335,7 @@ nav ul {
 	padding: 24px;
 	border-radius: 2px;
 	cursor: pointer;
+	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 }
 .tool-search-svg:hover {
@@ -352,6 +357,7 @@ nav ul {
 	vertical-align: top;
 	width: 0%;
 	height: 40px;
+	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 	box-sizing: border-box;
 	margin: 20px 0;
@@ -371,7 +377,7 @@ nav ul {
 	padding: 5px 10px;
 	background-color: #2c3e50;
 	color: #ffffff;
-	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
 	box-shadow: 0 0px 1px #cccccc;	
 	font-size: 18px;
 	font-family: 'Raleway', sans-serif;
@@ -390,6 +396,7 @@ nav ul {
 	padding: 5px 10px;
 	background-color: #2c3e50;
 	color: #ffffff;
+	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 	box-shadow: 0 0px 1px #cccccc;	
 	font-size: 18px;
@@ -418,6 +425,7 @@ nav ul {
 	margin: 10px 0;	
 	background-color: #2c3e50;
 	border-radius: 2px;
+	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 	text-decoration: none;
 }
@@ -437,10 +445,11 @@ nav ul {
 
 .page2.ng-leave {
 	z-index: 8888;
+    -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
 .page2.ng-enter {
-	z-index: 9999;
+	z-index: 9000;
     -webkit-animation:slideInRight 0.5s both ease-in;
 	-moz-animation:slideInRight 0.5s both ease-in;
 	animation:slideInRight 0.5s both ease-in; 

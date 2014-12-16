@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="./css/exp.css">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+	<div class="intropage">
+		<div class="introheading">Welkom!</div>
+
+		<textarea class="openinput url"></textarea>	
+		<textarea class="openinput provider"></textarea>	
+		<textarea class="openinput title"></textarea>	
+		<textarea class="openinput headline"></textarea>	
+		<textarea class="openinput summary"></textarea>	
+		<textarea class="openinput title"></textarea>	
+		<textarea class="openinput category"></textarea>	
+		<textarea class="openinput lat"></textarea>	
+		<textarea class="openinput lng"></textarea>	
+		<textarea class="openinput country"></textarea>	
+	</div>
+
+	<script>
+	var string = "";
+	$('.introheading').on('click', function() {
+		string = JSON.stringify($('.url').val());
+		string = string.replace("n", "br");
+		console.log(string);
+	});
+
+	</script>
+</body>

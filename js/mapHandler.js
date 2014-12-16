@@ -16,7 +16,7 @@ function redraw() {
 
 function markerClick(marker) {
 	var code = $(marker).attr('data-index');
-	window.location = '/#/article/' + code + '/' + map.markers[code].config.title ;	
+	window.location = './#/article/' + code + '/' + map.markers[code].config.title ;	
 	markerLeave(marker);
 }
 
@@ -120,7 +120,7 @@ function filter(query) {
 		var html = "";
 		for(var c in result) {
 			countryArray.push(result[c].code);
-			html += '<a href="#/country/' + result[c].code + '"><div class="countryFound"><span>' + countries[result[c].code].config.name + '</span></div></a>';
+			html += '<a href="./#/country/' + result[c].code + '"><div class="countryFound"><span>' + countries[result[c].code].config.name + '</span></div></a>';
 		}
 		//console.log(result);
 		//console.log(countryArray);
@@ -132,11 +132,12 @@ function filter(query) {
 }
 
 if (window.jQuery) {  console.log('Maphandler'); }
+
 var map = new jvm.Map({
     container: $('#map'),
 	map: 'world_mill_en',
 	onRegionClick: function(event, code) {
-		window.location = '#/country/' + code;
+		window.location = './#/country/' + code;
 		console.log(code);
 	},
 	regionStyle: {
