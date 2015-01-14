@@ -50,28 +50,14 @@ circle {
 	transition: all 0.5s;
 }
 .circle-hover {
-	stroke-width: 10;
+	stroke-width: 24;
+	stroke-opacity: 0.4;
 }
-.circle-hover.marker-politics {
-	stroke: #7FD385;
-	fill: #7FD385;	
+.circle-selected {
+	stroke-width: 24 !important;
+	stroke-opacity: 0.4 !important;	
 }
-.circle-hover.marker-technology {
-	stroke: #6C8AB7;
-	fill: #6C8AB7;	
-}
-.circle-hover.marker-conflict {
-	stroke: #D98880;
-	fill: #D98880;	
-}
-.circle-hover.marker-economy {
-	stroke: #F1C986;
-	fill: #F1C986;	
-}
-.circle-hover.marker-sports {
-	stroke: #808B96;
-	fill: #808B96;	
-}
+
 .logo {
 	font-size: 42px;
 	font-family: 'Raleway', sans-serif;
@@ -432,6 +418,38 @@ nav ul {
 .countryFound:hover {
 	background-color: #222;
 }
+
+.countryName {
+	position: absolute;
+	top: 20px;
+	left: 230px;
+	font-size: 32px;
+	font-family: 'Raleway', sans-serif;
+	color: #fff;
+}
+.jvectormap-tip {
+	font-size: 18px;
+	color: #fff;
+	position: absolute;
+	background: #000;
+	opacity: 0;
+	#transition-delay: opacity 1s;
+	display: block !important;
+	font-family: 'Raleway', sans-serif;
+	overflow: hidden;
+	box-sizing: border-box;
+	padding: 15px 20px;
+	border-radius: 2px;
+	background-color: #42586E;
+	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+	border-left: 10px solid #2c3e50;
+}
+.jvectormap-tip.show {
+	opacity: 1;
+	#transition-delay: opacity 1s;
+	transition: opacity 0.5s 0.5s;
+}
+
 #about      { color:#333; position:absolute; text-align:center; top:50px; width:100%; }
 
 /* PAGES

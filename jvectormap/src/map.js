@@ -509,14 +509,11 @@ jvm.Map.prototype = {
     this.tip = jvm.$('<div/>').addClass('jvectormap-tip').appendTo(jvm.$('body'));
 
     this.container.mousemove(function(e){
-      var left = e.pageX-15-map.tipWidth,
-          top = e.pageY-15-map.tipHeight;
+      var left = e.pageX-25-(map.tipWidth)/2,
+          top = e.pageY-50-map.tipHeight;
 
-      if (left < 5) {
-        left = e.pageX + 15;
-      }
-      if (top < 5) {
-        top = e.pageY + 15;
+      if (left < 10) {
+        left = 10;
       }
 
       if (map.tip.is(':visible')) {
@@ -1115,7 +1112,8 @@ jvm.Map.defaultParams = {
     hover: {
       stroke: '#2AB633',
       "stroke-width": 1,
-      cursor: 'pointer'
+      cursor: 'pointer',
+      r: 12
     },
     selected: {
       fill: 'blue'

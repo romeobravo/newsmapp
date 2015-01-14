@@ -9,9 +9,21 @@ function filterArticles(articles) {
 	});
 }
 
+function clearArticleHighlight() {
+	$('circle').each(function() {
+		var now = $(this).attr('class');
+		$(this).attr('class', now.replace('circle-selected', ''));
+	});
+}
+
 function articleHighlight(article) {
-	// var marker = $('circle[data-index=' + article + ']').get(0);	
-	// markerEnter(marker, false);
+	var now = $('circle[data-index=' + article + ']').attr('class');
+	if(now.indexOf('circle-selected') < 0) {
+		now += ' circle-selected';
+		$('circle[data-index=' + article + ']').attr('class', now);	
+	} else {
+		now = now.replace('circle-selected', '');
+	}
 }
 
 function countryHighlight(countries) {
@@ -139,6 +151,7 @@ newsApp.controller('mainController', function($scope, myService) {
 		} else {
 			$scope.found = false;
 		}
+		clearArticleHighlight();
 		countryHighlight([]);
 		categoryShow();
 	});
@@ -162,6 +175,7 @@ newsApp.controller('countryController', function($scope, $routeParams, myService
 		} else {
 			$scope.found = false;
 		}
+		clearArticleHighlight();
 		countryHighlight($routeParams.param);
 		categoryShow();
 	});
@@ -174,6 +188,7 @@ newsApp.controller('articleController', function($scope, $routeParams, myService
 		$scope.code = data.country[0];
 		$scope.country = map.mapData.paths[data.country[0]].name;
 		countryHighlight(data.country);
+		clearArticleHighlight();
 		articleHighlight($routeParams.param);
 		categoryShow();
 	});
@@ -190,6 +205,7 @@ newsApp.controller('categoryController', function($scope, $routeParams, myServic
 		$scope.articles = data;
 		$scope.category = $routeParams.param;
 		countryHighlight([]);
+		clearArticleHighlight();
 		categoryShow(data);
 	});
 });

@@ -2,6 +2,18 @@ var markerData = {};
 var countries = {};
 var lastCountry;
 
+function showName() {
+	if(!$('.jvectormap-tip').hasClass('show')) {
+		$('.jvectormap-tip').addClass('show');
+	}
+}
+
+function hideName() {
+	if($('.jvectormap-tip').hasClass('show')) {
+		$('.jvectormap-tip').removeClass('show');
+	}
+}
+
 function redraw() {
 	for(var mid in markerData) {
 		if(!markerData[mid].show.search || !markerData[mid].show.category) {
@@ -23,6 +35,7 @@ function markerClick(marker) {
 function markerEnter(marker, label) {
 	if($(marker).attr('class').indexOf('circle-hover') < 0) {
 		$(marker).attr('class', $(marker).attr('class') + ' circle-hover');
+		$(marker).attr('r', 12);
 	}
 	if(label) {
 		var offset = $(marker).offset();
@@ -72,6 +85,7 @@ function markerLeave(marker) {
 		var classList = $(marker).attr('class');
 		classList = classList.replace(' circle-hover', '');
 		$(marker).attr('class', classList);
+		$(marker).attr('r', 6);
 	}
 }
 
@@ -136,9 +150,18 @@ if (window.jQuery) {  console.log('Maphandler'); }
 var map = new jvm.Map({
     container: $('#map'),
 	map: 'world_mill_en',
+	onRegionTipShow: function(e, el, code) {
+		el.html(map.regions[code].name);
+	},
 	onRegionClick: function(event, code) {
 		window.location = './#/country/' + code;
 		console.log(code);
+	},
+	onRegionOver: function(event, code) {
+		showName();
+	},
+	onRegionOut: function(event, code) {
+		hideName();
 	},
 	regionStyle: {
 		initial: {
@@ -165,7 +188,12 @@ $(window).on('load', function() {
 				{
 					initial: {
 						fill: '#2D5898',
-						stroke: '#2D5898'
+						stroke: '#2D5898',
+						r: 6
+					},
+					hover: {
+						r: 12,
+						fill: '#000000'
 					},			
 					latLng: [marker.lat, marker.lng],
 					title: marker.title,
